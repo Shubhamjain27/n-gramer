@@ -1,0 +1,73 @@
+<div class="bas">
+  <form style="width:100%;" [formGroup]="myForm" novalidate (ngSubmit)="save(myForm.value, myForm.valid)">
+
+    <div class="form-group">
+      <label for="address">Put your values seperated by commas here</label>
+      <input type="text" formControlName="values" class="form-control" placeholder="Solitude, Extinct, Love">
+      <small [hidden]="myForm.controls.values.valid || myForm.controls.values.pristine && !submitted">
+        Values are required.
+      </small>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-3">
+        <label for="address">From</label>
+        <input type="Number" formControlName="startYear" class="form-control" placeholder="Year">
+        <small [hidden]="myForm.controls.startYear.valid || myForm.controls.startYear.pristine && !submitted">
+          Start Year is required.
+        </small>
+        <small [hidden]="myForm.controls.startYear.value > 1500 && myForm.controls.startYear.value < 2000  || myForm.controls.startYear.pristine && !submitted">
+            Value has to be between 1500 to 2000.
+          </small>
+      </div>
+      <div class="form-group col-md-3">
+        <label for="address">To</label>
+        <input type="Number" formControlName="endYear" class="form-control" placeholder="Year">
+        <small [hidden]="myForm.controls.endYear.valid || myForm.controls.endYear.pristine && !submitted">
+          End Year is required.
+        </small>
+        <small [hidden]="myForm.controls.endYear.value >= 1500 && myForm.controls.endYear.value <= 2000  || myForm.controls.startYear.pristine && !submitted">
+          Value has to be between 1500 to 2000.
+        </small>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-6">
+        <label for="address">Choose corpora</label>
+        <select multiple class="custom-select form-control" id="country" formControlName="corpora">
+          <option value="" disabled selected>Corpora</option>
+          <option *ngFor="let corpus of corpora" [value]="corpus.Value">
+            {{corpus.Name}}
+          </option>
+
+        </select>
+        <small [hidden]="myForm.controls.corpora.valid || myForm.controls.corpora.pristine && !submitted">
+          Corpora is required.
+        </small>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="address">Smoothing</label>
+        <select class="custom-select d-block w-100 form-control" id="country" formControlName="smoothing">
+          <option value="" disabled selected>Smoothing</option>
+          <option *ngFor="let smoothing of smoothingArray" [value]="smoothing">
+            {{smoothing}}
+          </option>
+
+        </select>
+        <small [hidden]="myForm.controls.smoothing.valid || myForm.controls.smoothing.pristine && !submitted">
+          Smoothing is required.
+        </small>
+      </div>
+    </div>
+    <button [disabled]="myForm.controls.endYear.value<myForm.controls.startYear.value || !(myForm.controls.startYear.value >= 1500 && myForm.controls.startYear.value <= 2000) || !(myForm.controls.endYear.value >= 1500 && myForm.controls.endYear.value <= 2000) || !myForm.valid " type="submit" class="btn btn-primary">Submit</button>
+
+  </form>
+  
+  <div [hidden]="downloadable">
+        <hr>
+    <a href="{{resultLink}}">Download the result</a>
+  </div>
+  <br/>
+  <br/>
+  <hr>
+  <h5>PRESENTED BY: MITALI BANERJEE</h5>
+</div>
